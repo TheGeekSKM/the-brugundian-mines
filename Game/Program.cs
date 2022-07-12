@@ -38,6 +38,7 @@ namespace Game
             MainMenu();
         }
 
+        #region Story/Dialogue Methods
         static void MainMenu()
         {
             Console.WriteLine("Welcome To The Mines of Brugundia!");
@@ -96,7 +97,9 @@ namespace Game
 
             AttributesDeciding();
         }
+        #endregion
 
+        #region Gameplay Methods
         static void AttributesDeciding()
         {
             int totalPoints = 20;
@@ -201,5 +204,9 @@ namespace Game
             if (attribRedo.Equals("N") || attribRedo.Equals("n")) { AttributesDeciding(); }
 
         }
+        #endregion
+
+        //TODO: Add IntroTwo Method explaining the room
+        //TODO: Introduce typing mechanic to loot the room.
     }
 }
