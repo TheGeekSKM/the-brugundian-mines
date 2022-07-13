@@ -9,6 +9,11 @@ namespace Game
     class Program
     {
         public static Player currentPlayer = new Player();
+        public static List<Room> rooms = new List<Room>();
+
+        public static Room beginningRoom;
+
+        public static int NumOfRooms = 10;
 
         #region Helpful Methods
 
@@ -46,8 +51,23 @@ namespace Game
 
         static void Main(string[] args)
         {
+            LoadGame();
             MainMenu();
             BeginningRoom();
+        }
+
+        static void LoadGame()
+        {
+            beginningRoom = new Room("Beginning Room","A dark room with a hallway to the front of you and broken rocks all over.");
+
+            rooms.Add(beginningRoom);
+            for (int i = 0; i < NumOfRooms; i++)
+            {
+                rooms.Add(
+                    new Room(
+                        $"Dungeon Room #{i + 1}",
+                        "A cold dark room that's barely visible."));
+            }
         }
 
         #region Story/Dialogue Methods
@@ -82,6 +102,16 @@ namespace Game
             Print("as you realize that something heavy is in your right hand.");
             Console.WriteLine();
             Print("You drop it out of panic and instinct. ");
+
+            beginningRoom.itemsInRoom.Add(
+                new Items(
+                    ItemType.Tool,
+                    "Worn Pickaxe",
+                    "A beaten and worn pickaxe with flesh and sinew attached to it.",
+                    5,
+                    0,
+                    5));
+
             Console.WriteLine();
             Print("As it clatters onto the ground, the high pitched wines begin to squirm their way out of");
             Print("your ears. The object's echo races all around you... ");

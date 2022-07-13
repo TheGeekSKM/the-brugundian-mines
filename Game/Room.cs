@@ -12,6 +12,9 @@ namespace Game
 
         private string roomName = "Untitled Room";
         private string roomDescription = "A random room...";
+
+        
+
         public string RoomDescription { get { return roomDescription; } }
         public string RoomName { get { return roomName; } }
 
@@ -19,8 +22,19 @@ namespace Game
 
         public Room(string name, string description)
         {
+            #region Hallway
+
+            int r = rand.Next(3);
+            string descAddendum = "";
+
+            if (r == 0) { descAddendum = "A hallway lies in front of you..."; }
+            else if (r == 1) { descAddendum = "A hallway lies to the left of you..."; }
+            else if (r == 2) { descAddendum = "A hallway lies to the right of you..."; }
+
+            #endregion
+
             roomName = name;
-            roomDescription = description;
+            roomDescription = description + descAddendum;
 
             //Adding some rocks to a room.
             for (int i = 0; i < rand.Next(3, 6); i++)
