@@ -367,6 +367,15 @@ namespace Game
                     Hide();
                     break;
 
+                case "pick up item":
+                    break;
+
+                case "check inventory":
+                    break;
+
+                case "run":
+                    break;
+
                 default:
                     Console.WriteLine("Unknown Command...");
                     System.Threading.Thread.Sleep(1000);
@@ -403,7 +412,7 @@ namespace Game
             else
             {
                 Console.Clear();
-                Print("You are unable to hide.");
+                Print("You scramble for cover, but the room presents no space for you to hide.");
                 Print("");
                 Print("You will remain visible to any enemies in the area...");
                 Print("");
