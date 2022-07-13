@@ -31,6 +31,17 @@ namespace Game
             else { return value; }
         }
 
+        static void Print(string s, int speed = 20)
+        {
+            foreach (char c in s)
+            {
+                Console.Write(c);
+                System.Threading.Thread.Sleep(speed);
+
+            }
+            Console.WriteLine();
+        }
+
         #endregion
 
         static void Main(string[] args)
@@ -41,8 +52,8 @@ namespace Game
         #region Story/Dialogue Methods
         static void MainMenu()
         {
-            Console.WriteLine("Welcome To The Mines of Brugundia!");
-            Console.WriteLine("Character Name:");
+            Print("Welcome To The Mines of Brugundia!");
+            Print("Character Name:");
             currentPlayer.Name = Console.ReadLine();
 
             if (currentPlayer.Name.Equals("") || currentPlayer.Name == null)
@@ -57,45 +68,51 @@ namespace Game
         static void Intro()
         {
             Console.Clear();
-            Console.WriteLine("You awake in darkness. ");
+            Print("You awake in darkness. ");
             Console.WriteLine();
-            Console.WriteLine("Your eyes remain unadjusted to the pitch black that envelopes your entire being. ");
+            Print("Your eyes remain unadjusted to the pitch black that envelopes your entire being. ");
             Console.WriteLine();
-            Console.WriteLine("A cacpphony or high pitched wines rattle their way through your skull.");
+            Print("A cacpphony or high pitched wines rattle their way through your skull.");
             Console.WriteLine();
-            Console.WriteLine("You quickly grab your head as feeling and sensitivity rush back into your fingers, ");
-            Console.WriteLine("your legs, your feet, and the rest of your body. ");
+            Print("You quickly grab your head as feeling and sensitivity rush back into your fingers, ");
+            Print("your legs, your feet, and the rest of your body. ");
             Console.WriteLine();
-            Console.WriteLine("As your left hand clutches your head, your right hand moves to do the same but stops");
-            Console.WriteLine("as you realize that something heavy is in your right hand.");
+            Print("As your left hand clutches your head, your right hand moves to do the same but stops");
+            Print("as you realize that something heavy is in your right hand.");
             Console.WriteLine();
-            Console.WriteLine("You drop it out of panic and instinct. ");
+            Print("You drop it out of panic and instinct. ");
             Console.WriteLine();
-            Console.WriteLine("As it clatters onto the ground, the high pitched wines begin to squirm their way out of");
-            Console.WriteLine("your ears. The object's echo races all around you... ");
+            Print("As it clatters onto the ground, the high pitched wines begin to squirm their way out of");
+            Print("your ears. The object's echo races all around you... ");
             Console.WriteLine();
-            Console.WriteLine("Press any key to continue...");
+            Print("Press any key to continue...");
             Console.ReadLine();
 
             Console.Clear();
-            Console.WriteLine("You stand still as the echo subsides.");
+            Print("You stand still as the echo subsides.");
             Console.WriteLine();
-            Console.WriteLine("No response greets you...");
+            Print("No response greets you...");
             Console.WriteLine();
-            Console.WriteLine("Press any key to continue...");
+            Print("Press any key to continue...");
             Console.ReadLine();
 
             Console.Clear();
-            Console.WriteLine("Your brain rattle under the gargantuan headache that rumbles in your head.");
+            Print("Your brain rattle under the gargantuan headache that rumbles in your head.");
             Console.WriteLine();
-            Console.WriteLine("You're having a hard time remembering who you are.");
+            Print("You're having a hard time remembering who you are.");
             Console.WriteLine();
             Console.WriteLine($"All you know is that your name is {currentPlayer.Name}");
             Console.WriteLine();
-            Console.WriteLine("Press any key to continue...");
+            Print("Press any key to continue...");
             Console.ReadLine();
 
             AttributesDeciding();
+        }
+
+        static void BeginningRoom()
+        {
+            Console.Clear();
+            Print("Your eyes begin to slowly adjust to the darkness of the room.");
         }
         #endregion
 
@@ -104,22 +121,22 @@ namespace Game
         {
             int totalPoints = 20;
             Console.Clear();
-            Console.WriteLine("Slowly a few things about you make your way back into your memory...");
+            Print("Slowly a few things about you make your way back into your memory...");
             Console.WriteLine();
-            Console.WriteLine("Press any key to continue...");
+            Print("Press any key to continue...");
             Console.ReadKey();
 
             Console.Clear();
-            Console.WriteLine("You have 20 points to divide between 4 attributes (Str, Dex, Con, Arc)...");
-            Console.WriteLine("Use them well and use them all...");
+            Print("You have 20 points to divide between 4 attributes (Str, Dex, Con, Arc)...");
+            Print("Use them well and use them all...");
             Console.ReadKey();
 
             #region Strength
             Console.Clear();
-            Console.WriteLine("How much Strength would you like?");
-            Console.WriteLine("[No more than 8 and no less than 2]");
+            Print("How much Strength would you like?");
+            Print("[No more than 8 and no less than 2]");
             Console.WriteLine();
-            Console.WriteLine("Type in a number:");
+            Print("Type in a number:");
             currentPlayer.Strength = 
                 LimitInteger(
                     ParseToInteger(Console.ReadLine(), 5),
@@ -129,16 +146,16 @@ namespace Game
             Console.Clear();
             Console.WriteLine($"You have {currentPlayer.Strength} Strength!");
             Console.WriteLine($"You have {totalPoints} total points left...");
-            Console.WriteLine("Press any key to continue...");
+            Print("Press any key to continue...");
             Console.ReadKey();
             #endregion
 
             #region Dexterity
             Console.Clear();
-            Console.WriteLine("How much Dexterity would you like?");
-            Console.WriteLine("[No more than 8 and no less than 2]");
+            Print("How much Dexterity would you like?");
+            Print("[No more than 8 and no less than 2]");
             Console.WriteLine();
-            Console.WriteLine("Type in a number:");
+            Print("Type in a number:");
             currentPlayer.Dexterity =
                 LimitInteger(
                     ParseToInteger(Console.ReadLine(), 5),
@@ -148,16 +165,16 @@ namespace Game
             Console.Clear();
             Console.WriteLine($"You have {currentPlayer.Dexterity} Dexterity!");
             Console.WriteLine($"You have {totalPoints} total points left...");
-            Console.WriteLine("Press any key to continue...");
+            Print("Press any key to continue...");
             Console.ReadKey();
             #endregion
 
             #region Constitution
             Console.Clear();
-            Console.WriteLine("How much Constitution would you like?");
-            Console.WriteLine("[No more than 8 and no less than 2]");
+            Print("How much Constitution would you like?");
+            Print("[No more than 8 and no less than 2]");
             Console.WriteLine();
-            Console.WriteLine("Type in a number:");
+            Print("Type in a number:");
             currentPlayer.Constitution =
                 LimitInteger(
                     ParseToInteger(Console.ReadLine(), 5),
@@ -168,9 +185,9 @@ namespace Game
             if (totalPoints < 2) 
             {
                 Console.Clear();
-                Console.WriteLine("You failed to allot points correctly...");
-                Console.WriteLine("You must try again...");
-                Console.WriteLine("Press any key to continue...");
+                Print("You failed to allot points correctly...");
+                Print("You must try again...");
+                Print("Press any key to continue...");
                 Console.ReadKey();
                 AttributesDeciding();
             }
@@ -178,7 +195,7 @@ namespace Game
             Console.Clear();
             Console.WriteLine($"You have {currentPlayer.Constitution} Constitution!");
             Console.WriteLine($"You have {totalPoints} points left for Arcana...");
-            Console.WriteLine("Press any key to continue...");
+            Print("Press any key to continue...");
             Console.ReadKey();
             #endregion
 
@@ -187,18 +204,18 @@ namespace Game
             currentPlayer.Arcana = totalPoints;
             Console.Clear();
             Console.WriteLine($"You have {currentPlayer.Arcana} Arcana!");
-            Console.WriteLine("Press any key to continue...");
+            Print("Press any key to continue...");
             Console.ReadKey();
             #endregion
 
             Console.Clear();
-            Console.WriteLine("Your attributes are: ");
+            Print("Your attributes are: ");
             Console.WriteLine($"Strength: {currentPlayer.Strength}");
             Console.WriteLine($"Dexterity: {currentPlayer.Dexterity}");
             Console.WriteLine($"Constitution: {currentPlayer.Constitution}");
             Console.WriteLine($"Arcana: {currentPlayer.Arcana}");
             Console.WriteLine();
-            Console.WriteLine("Press [Y] to continue or Press [N] to redo your attributes.");
+            Print("Press [Y] to continue or Press [N] to redo your attributes.");
             string attribRedo = Console.ReadLine();
 
             if (attribRedo.Equals("N") || attribRedo.Equals("n")) { AttributesDeciding(); }
