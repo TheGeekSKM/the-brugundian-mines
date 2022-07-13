@@ -10,6 +10,7 @@ namespace Game
     {
         Potion,
         Weapon,
+        Armor,
         Tool,
         Key
     }
@@ -17,7 +18,7 @@ namespace Game
     {
         private ItemType type = ItemType.Tool;
         private string itemName = "Untitled Item";
-        private string itemDescription = "A random item...";
+        public string itemDescription = "A random item...";
 
         private int itemDamage = 0;
         private int itemArmor = 0;
@@ -25,11 +26,22 @@ namespace Game
         public int itemDurability = 20;
         
         public ItemType Type { get { return type; } }
-        public string ItemDescription { get { return itemDescription; } }
         public string ItemName { get { return itemName; } }
         public int ItemDamage { get { return itemDamage; } }
         public int ItemArmor { get { return itemArmor; } }
 
+        
+        public Items(ItemType t, string name, string description, int damage, int armor, int durability = 20)
+        {
+            type = t;
+            itemName = name;
+            itemDescription = description;
+
+            itemDamage = damage;
+            itemArmor = armor;
+
+            itemDurability = durability;
+        }
 
     }
 }
