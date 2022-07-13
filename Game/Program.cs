@@ -31,7 +31,7 @@ namespace Game
             else { return value; }
         }
 
-        static void Print(string s, int speed = 10)
+        static void Print(string s, int speed = 30)
         {
             foreach (char c in s)
             {
@@ -47,6 +47,7 @@ namespace Game
         static void Main(string[] args)
         {
             MainMenu();
+            BeginningRoom();
         }
 
         #region Story/Dialogue Methods
@@ -133,10 +134,39 @@ namespace Game
             Print("You inch closer to the head to get a better look.");
             Console.WriteLine();
             Console.WriteLine("Press any key to continue...");
-            Console.WriteLine();
+            Console.ReadLine();
 
             Console.Clear();
+            Print("The head is vaguely humanoid, aside from the various eyes and tusks.");
+            Console.WriteLine();
+            Print("You slowly begin to recognize the face...");
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadLine();
+
+            Console.Clear();
+            Print("Suddenly...");
+            Console.WriteLine();
+            Print("the head...", 70);
+            Console.WriteLine();
+            Print("SCREAMS", 100);
+            Console.WriteLine();
+            System.Threading.Thread.Sleep(500);
+
+            Console.Clear();
+            Print("The scream rips through the silent air and races through the seemingly empty hallway");
+            Print("that seems to lie before you...");
+            Console.WriteLine();
+            System.Threading.Thread.Sleep(500);
             
+            Print("A moment passes before another scream-just as shrill and just as angry as the head-");
+            Print("responds from the hallway.");
+            Console.WriteLine();
+            Print("You begin to hear scraping noises coming from the hallway as something is coming...");
+            Console.WriteLine();
+            Print("and it is coming quickly...", 70);
+            Console.WriteLine();
+            Console.ReadLine();
         }
         #endregion
 
