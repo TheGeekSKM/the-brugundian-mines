@@ -31,7 +31,7 @@ namespace Game
             else { return value; }
         }
 
-        static void Print(string s, int speed = 20)
+        static void Print(string s, int speed = 10)
         {
             foreach (char c in s)
             {
