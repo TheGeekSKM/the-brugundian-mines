@@ -6,12 +6,23 @@ using System.Threading.Tasks;
 
 namespace Game
 {
+    enum PlayerState
+    {
+        Normal,
+        Hidden,
+        Dying,
+        Poisoned,
+        Sleeping,
+        Fighting
+    }
     class Player
     {
+        public PlayerState currentState = PlayerState.Normal;
         public string Name { get; set; }
         public int Coins { get; set; } = 0;
         public int ArmorValue { get; set; } = 0;
         public int Potion { get; set; } = 5;
+        public int Visibility { get; set; } = 7;
 
         //Attributes
         public int Strength { get; set; } = 5;
@@ -38,9 +49,13 @@ namespace Game
             Constitution = 5;
             Arcana = 5;
 
+            currentState = PlayerState.Normal; 
+
             Health = Constitution * 2;
             Damage = Strength * 2;
         }
+
+        
 
     }
 }

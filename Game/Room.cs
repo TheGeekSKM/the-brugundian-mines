@@ -13,7 +13,7 @@ namespace Game
         private string roomName = "Untitled Room";
         private string roomDescription = "A random room...";
 
-        
+        public int HidingDifficulty = 10;
 
         public string RoomDescription { get { return roomDescription; } }
         public string RoomName { get { return roomName; } }
@@ -27,9 +27,9 @@ namespace Game
             int r = rand.Next(3);
             string descAddendum = "";
 
-            if (r == 0) { descAddendum = "A hallway lies in front of you..."; }
-            else if (r == 1) { descAddendum = "A hallway lies to the left of you..."; }
-            else if (r == 2) { descAddendum = "A hallway lies to the right of you..."; }
+            if (r == 0) { descAddendum = " A hallway lies in front of you..."; }
+            else if (r == 1) { descAddendum = " A hallway lies to the left of you..."; }
+            else if (r == 2) { descAddendum = " A hallway lies to the right of you..."; }
 
             #endregion
 
@@ -50,5 +50,8 @@ namespace Game
                );
             }
         }
+
+       
+        
     }
 }

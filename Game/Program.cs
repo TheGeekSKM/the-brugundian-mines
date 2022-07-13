@@ -3,15 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.Tools;
 
 namespace Game
 {
+    enum CombatState
+    {
+        PlayerNormal,
+        PlayerTurnStart,
+        PlayerTurn,
+        PlayerTurnEnd,
+        EnemyTurnStart,
+        EnemyTurn,
+        EnemyTurnEnd,
+    }
+
     class Program
     {
+        public static CombatState combatState = CombatState.PlayerNormal;
+        public static Random rand = new Random();
         public static Player currentPlayer = new Player();
         public static List<Room> rooms = new List<Room>();
 
         public static Room beginningRoom;
+        public static Room currentRoom = beginningRoom;
+
+        public static bool gameLoopStarted = false;
+
 
         public static int NumOfRooms = 10;
 
@@ -59,7 +77,7 @@ namespace Game
         static void LoadGame()
         {
             beginningRoom = new Room("Beginning Room","A dark room with a hallway to the front of you and broken rocks all over.");
-
+            currentRoom = beginningRoom;
             rooms.Add(beginningRoom);
             for (int i = 0; i < NumOfRooms; i++)
             {
@@ -142,6 +160,14 @@ namespace Game
 
         static void BeginningRoom()
         {
+            #region Beginning Room Setup
+            currentRoom = beginningRoom;
+            currentPlayer.availableActions.Add("Hide");
+            currentPlayer.availableActions.Add("Pick Up Item");
+            currentPlayer.availableActions.Add("Check Inventory");
+            currentPlayer.availableActions.Add("Run");
+            #endregion
+
             Console.Clear();
             Print("Your eyes begin to slowly adjust to the darkness of the room.");
             Console.WriteLine();
@@ -197,6 +223,9 @@ namespace Game
             Print("and it is coming quickly...", 70);
             Console.WriteLine();
             Console.ReadLine();
+
+            combatState = CombatState.PlayerTurnStart;
+            PlayerTurnStart();
         }
         #endregion
 
@@ -305,8 +334,86 @@ namespace Game
             if (attribRedo.Equals("N") || attribRedo.Equals("n")) { AttributesDeciding(); }
 
         }
+
+
+        static void PlayerTurnStart()
+        {
+            combatState = CombatState.PlayerTurnStart;
+            PlayerTurn();
+        }
+        static void PlayerTurn()
+        {
+            combatState = CombatState.PlayerTurn;
+            Console.Clear();
+            Console.WriteLine("======================================================");
+            Console.WriteLine($"The Room You're In: {currentRoom.RoomName}");
+            Console.WriteLine(currentRoom.RoomDescription);
+            Console.WriteLine("======================================================");
+            Console.WriteLine();
+            Console.WriteLine("======================================================");
+            Console.WriteLine("The Options You Have:");
+            for (int i = 0; i < currentPlayer.availableActions.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. \"{currentPlayer.availableActions[i]}\"");
+            }
+            Console.WriteLine("======================================================");
+            Console.WriteLine();
+            Console.Write("Type what you would like to do: ");
+            string response = Console.ReadLine();
+            response = response.ToLower();
+            switch (response)
+            {
+                case "hide":
+                    Hide();
+                    break;
+
+                default:
+                    Console.WriteLine("Unknown Command...");
+                    System.Threading.Thread.Sleep(1000);
+                    PlayerTurn();
+                    break;
+            }
+
+
+
+        }
+
+
         #endregion
 
+        #region Commands
+        static void Hide()
+        {
+            int decidingNum = rand.Next(currentRoom.HidingDifficulty) + 1;
+            if (decidingNum <= currentPlayer.Dexterity)
+            {
+                currentPlayer.currentState = PlayerState.Hidden;
+
+                Console.Clear();
+                Print("You are successfully hidden.");
+                Print("You will continue hiding until the next turn.");
+                Print("");
+                Print("While you are hidden, you cannot be seen by enemies...");
+                Print("");
+                Print("Your turn is over.");
+                Console.WriteLine();
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.Clear();
+                Print("You are unable to hide.");
+                Print("");
+                Print("You will remain visible to any enemies in the area...");
+                Print("");
+                Print("Your turn is over.");
+                Console.WriteLine();
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadLine();
+            }
+        }
+        #endregion
         //TODO: Add IntroTwo Method explaining the room
         //TODO: Introduce typing mechanic to loot the room.
     }
