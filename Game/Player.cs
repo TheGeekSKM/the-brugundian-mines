@@ -23,6 +23,9 @@ namespace Game
         public int Health;
         public int Damage;
 
+        //Actions
+        public List<string> availableActions = new List<string>();
+
         public Player()
         {
             Name = "Jerris Caedwyn";
