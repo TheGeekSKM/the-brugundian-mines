@@ -113,6 +113,30 @@ namespace Game
         {
             Console.Clear();
             Print("Your eyes begin to slowly adjust to the darkness of the room.");
+            Console.WriteLine();
+            Print("You see all rocks and stones all around you.");
+            Console.WriteLine();
+            Print("Near the jagged rocks that dot the floor, lies the pickaxe you dropped.");
+            Console.WriteLine();
+            Print("It rests in a still manner, unmoving. Your eyes follow the curved metal as it");
+            Print("rounds off on one end, but the other end leads to an indescribable mesh.");
+            Console.WriteLine();
+            Print("A head.", 50);
+            Console.WriteLine();
+            Print("You gasp as the head begins to show itself clearly to you, your eyes somehow");
+            Print("recognizing the form and the features.");
+            Console.WriteLine();
+            Print("The 8 piercing eyes, the humanoid nose torn by a single venomous portruding tusk,");
+            Print("the mouth that has been impaled on the pickaxe and the scraps of hair that remain on");
+            Print("the backside of the head.");
+            Console.WriteLine();
+            Print("You inch closer to the head to get a better look.");
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue...");
+            Console.WriteLine();
+
+            Console.Clear();
+            
         }
         #endregion
 
