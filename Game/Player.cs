@@ -18,6 +18,7 @@ namespace Game
     class Player
     {
         public PlayerState currentState = PlayerState.Normal;
+        public List<Items> inventory = new List<Items>();
         public string Name { get; set; }
         public int Coins { get; set; } = 0;
         public int ArmorValue { get; set; } = 0;

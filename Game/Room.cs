@@ -20,6 +20,28 @@ namespace Game
 
         public List<Items> itemsInRoom = new List<Items>();
 
+
+
+        #region Command Responses
+
+        public string HideSuccess = "You manage to hide yourself underneath the rubble!";
+        public string HideFail = "After a quick scan, you realize that there is nowhere to hide...";
+
+        public void ChangeHideSuccessText(string s)
+        {
+            HideSuccess = s;
+        }
+        public void ChangeHideFailText(string s)
+        {
+            HideFail = s;
+        }
+
+        #endregion
+
+        #region Player Actions
+
+        #endregion
+
         public Room(string name, string description)
         {
             #region Hallway
@@ -51,7 +73,6 @@ namespace Game
             }
         }
 
-       
-        
+
     }
 }

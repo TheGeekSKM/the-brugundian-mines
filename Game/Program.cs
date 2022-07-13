@@ -56,12 +56,26 @@ namespace Game
 
         static void Print(string s, int speed = 30)
         {
-            foreach (char c in s)
+            for (int c = 0; c < s.Length; c++)
             {
-                Console.Write(c);
+                Console.Write(s[c]);
                 System.Threading.Thread.Sleep(speed);
 
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                    if (keyInfo.Key == ConsoleKey.Spacebar)
+                    {
+                        Console.Write(s.Substring(c + 1));
+                        
+                        break;
+                    }
+
+
+                }
+
             }
+            speed = 30;
             Console.WriteLine();
         }
 
@@ -358,36 +372,61 @@ namespace Game
             }
             Console.WriteLine("======================================================");
             Console.WriteLine();
-            Console.Write("Type what you would like to do: ");
-            string response = Console.ReadLine();
-            response = response.ToLower();
+            Console.Write("Type the number of the option you choose: ");
+            int response = ParseToInteger(Console.ReadLine(), 1);
             switch (response)
             {
-                case "hide":
+                case 1:
                     Hide();
                     break;
 
-                case "pick up item":
+                case 2:
+                    PickUpItem();
                     break;
 
-                case "check inventory":
+                case 4:
+                    CheckInventory();
                     break;
 
-                case "run":
+                case 5:
+                    Run();
                     break;
 
                 default:
-                    Console.WriteLine("Unknown Command...");
+                    Console.WriteLine("Unknown Number...");
                     System.Threading.Thread.Sleep(1000);
                     PlayerTurn();
                     break;
             }
-
+            combatState = CombatState.PlayerTurnEnd;
+            PlayerTurnEnd();
 
 
         }
 
+        static void PlayerTurnEnd()
+        {
+            combatState = CombatState.EnemyTurnStart;
+            EnemyTurnStart();
+        }
 
+        static void EnemyTurnStart()
+        {
+            combatState = CombatState.EnemyTurn;
+            EnemyTurn();
+        }
+
+        static void EnemyTurn()
+        {
+            combatState = CombatState.EnemyTurnEnd;
+            EnemyTurnEnd();
+        }
+
+        static void EnemyTurnEnd()
+        {
+            combatState = CombatState.PlayerTurnStart;
+            PlayerTurnStart();
+        }
         #endregion
 
         #region Commands
@@ -421,6 +460,57 @@ namespace Game
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadLine();
             }
+        }
+
+        static void PickUpItem()
+        {
+            Console.Clear();
+            Print("You look around the room for any items to pick up");
+            Print("");
+            Print("You find the following items on the floor");
+            Print("");
+            Console.WriteLine("=======================================================");
+
+            for (int i = 0; i < currentRoom.itemsInRoom.Count; i++)
+            {
+                Print($"{i + 1}. {currentRoom.itemsInRoom[i].ItemName}");
+                Print($"   \"{currentRoom.itemsInRoom[i].itemDescription}\"");
+                Print("");
+            }
+
+            Console.WriteLine("=======================================================");
+            Print("");
+            Print("");
+            Console.Write("Type in the number of the item you want to pick up: ");
+            int response = ParseToInteger(Console.ReadLine(), 0);
+
+            if (response < 1 || response > currentRoom.itemsInRoom.Count)
+            {
+                Console.Clear();
+                Print("Invalid Response. Please type in a valid number...");
+                System.Threading.Thread.Sleep(2000);
+                PickUpItem();
+            }
+            else 
+            {
+                Items pickedItem = currentRoom.itemsInRoom[response - 1];
+                Console.Clear();
+                Print($"You picked up {pickedItem.ItemName}!");
+                currentRoom.itemsInRoom.Remove(pickedItem);
+                currentPlayer.inventory.Add(pickedItem);
+                System.Threading.Thread.Sleep(2000);
+
+            }
+        }
+
+        static void CheckInventory()
+        {
+            
+        }
+
+        static void Run()
+        {
+            
         }
         #endregion
         //TODO: Add IntroTwo Method explaining the room
