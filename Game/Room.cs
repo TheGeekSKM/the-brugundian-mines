@@ -10,6 +10,8 @@ namespace Game
     {
         private Random rand = new Random();
 
+        public Enemy enemy;
+
         private string roomName = "Untitled Room";
         private string roomDescription = "A random room...";
 
@@ -44,6 +46,15 @@ namespace Game
 
         public Room(string name, string description)
         {
+            #region Enemy Generation
+            enemy = new Enemy("Troll",
+                "A hideous beast with decaying green skin and two yellow tusks portruding from the mouth...",
+                rand.Next(5),
+                rand.Next(5),
+                rand.Next(3),
+                1);
+            #endregion
+
             #region Hallway
 
             int r = rand.Next(3);

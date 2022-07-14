@@ -23,10 +23,13 @@ namespace Game
         public static CombatState combatState = CombatState.PlayerNormal;
         public static Random rand = new Random();
         public static Player currentPlayer = new Player();
+
         public static List<Room> rooms = new List<Room>();
+        public static List<Enemy> enemies = new List<Enemy>();
 
         public static Room beginningRoom;
         public static Room currentRoom = beginningRoom;
+        public static Enemy currentEnemy = null;
 
         public static bool gameLoopStarted = false;
 
@@ -93,12 +96,16 @@ namespace Game
             beginningRoom = new Room("Beginning Room","A dark room with a hallway to the front of you and broken rocks all over.");
             currentRoom = beginningRoom;
             rooms.Add(beginningRoom);
+            enemies.Add(beginningRoom.enemy);
+
             for (int i = 0; i < NumOfRooms; i++)
             {
-                rooms.Add(
-                    new Room(
+                Room tempRoom = new Room(
                         $"Dungeon Room #{i + 1}",
-                        "A cold dark room that's barely visible."));
+                        "A cold dark room that's barely visible.");
+                rooms.Add(tempRoom);
+                enemies.Add(tempRoom.enemy);
+                
             }
         }
 
@@ -362,6 +369,9 @@ namespace Game
             Console.WriteLine("======================================================");
             Console.WriteLine($"The Room You're In: {currentRoom.RoomName}");
             Console.WriteLine(currentRoom.RoomDescription);
+            Console.WriteLine("");
+            Console.WriteLine($"Your Health: {currentPlayer.Health}");
+            Console.WriteLine($"Your Armor: {currentPlayer.ArmorValue}");
             Console.WriteLine("======================================================");
             Console.WriteLine();
             Console.WriteLine("======================================================");
