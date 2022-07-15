@@ -84,6 +84,7 @@ namespace Game
 
         #endregion
 
+
         static void Main(string[] args)
         {
             LoadGame();
@@ -356,9 +357,18 @@ namespace Game
 
         }
 
+        #endregion
+       
+        
+        #region Combat States
 
         static void PlayerTurnStart()
         {
+            if (currentPlayer.Health <= 0)
+            {
+                EndGame();
+            }
+
             combatState = CombatState.PlayerTurnStart;
             PlayerTurn();
         }
@@ -413,7 +423,6 @@ namespace Game
 
 
         }
-
         static void PlayerTurnEnd()
         {
             combatState = CombatState.EnemyTurnStart;
@@ -422,22 +431,50 @@ namespace Game
 
         static void EnemyTurnStart()
         {
-            combatState = CombatState.EnemyTurn;
-            EnemyTurn();
-        }
 
+            //Checks to see if the enemy is still alive...
+            if (currentEnemy == null || currentEnemy.health <= 0)
+            {
+                ReturnToNormal();
+            }
+            else
+            {
+                combatState = CombatState.EnemyTurn;
+                EnemyTurn();
+            }
+
+            //Checks to see if the enemy can see the player...
+            if (currentEnemy != null)
+            {
+                int enemySight = (rand.Next(8) + 1) + currentEnemy.sightModifier;
+                if (enemySight <= currentPlayer.Dexterity) 
+                {
+                    combatState = CombatState.EnemyTurnEnd;
+                    EnemyTurnEnd();
+                }
+            }
+
+
+
+        }
         static void EnemyTurn()
         {
             combatState = CombatState.EnemyTurnEnd;
             EnemyTurnEnd();
         }
-
         static void EnemyTurnEnd()
         {
             combatState = CombatState.PlayerTurnStart;
             PlayerTurnStart();
         }
+
+        static void ReturnToNormal()
+        {
+            combatState = CombatState.PlayerNormal;
+
+        }
         #endregion
+
 
         #region Commands
         static void Hide()
@@ -523,6 +560,19 @@ namespace Game
             
         }
         #endregion
+
+
+        static void EndGame()
+        {
+            Console.Clear();
+            Print("You died...");
+            Print("");
+
+            Print("Press any key to exit...");
+            Console.ReadLine();
+        }
+
+
         //TODO: Add IntroTwo Method explaining the room
         //TODO: Introduce typing mechanic to loot the room.
     }

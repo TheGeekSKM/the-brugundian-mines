@@ -18,15 +18,23 @@ namespace Game
 
         public Enemy()
         {
-            level = 1;
-            
             name = "Basic Troll";
             description = "A hideous medium creature with wrinkled green skin and bloody claws...";
 
-            health = level + 2;
-            damage = level;
+            health = 3;
+            damage = 1;
             sightModifier = 1;
-            armor = level - 1;
+            armor = 0;
+        }
+
+        public Enemy(string n, string d, int h, int dM, int sM, int a)
+        {
+            name = n;
+            description = d;
+            health = h;
+            damage = dM;
+            sightModifier = sM;
+            armor = a;
         }
     }
 }
