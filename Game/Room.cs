@@ -10,7 +10,7 @@ namespace Game
     {
         private Random rand = new Random();
 
-        public Enemy enemy;
+        public List<Enemy> enemiesInRoom = new List<Enemy>();
 
         private string roomName = "Untitled Room";
         private string roomDescription = "A random room...";

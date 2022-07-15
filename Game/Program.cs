@@ -97,7 +97,7 @@ namespace Game
             beginningRoom = new Room("Beginning Room","A dark room with a hallway to the front of you and broken rocks all over.");
             currentRoom = beginningRoom;
             rooms.Add(beginningRoom);
-            enemies.Add(beginningRoom.enemy);
+            enemies.Add(beginningRoom.enemiesInRoom[0]);
 
             for (int i = 0; i < NumOfRooms; i++)
             {
@@ -105,7 +105,7 @@ namespace Game
                         $"Dungeon Room #{i + 1}",
                         "A cold dark room that's barely visible.");
                 rooms.Add(tempRoom);
-                enemies.Add(tempRoom.enemy);
+                
                 
             }
         }
@@ -439,31 +439,36 @@ namespace Game
             }
             else
             {
-                combatState = CombatState.EnemyTurn;
-                EnemyTurn();
-            }
-
-            //Checks to see if the enemy can see the player...
-            if (currentEnemy != null)
-            {
+                //Checks to see if the enemy can see the player...
                 int enemySight = (rand.Next(8) + 1) + currentEnemy.sightModifier;
-                if (enemySight <= currentPlayer.Dexterity) 
+                if (enemySight <= currentPlayer.Dexterity)
                 {
                     combatState = CombatState.EnemyTurnEnd;
                     EnemyTurnEnd();
                 }
+                else
+                {
+                    combatState = CombatState.EnemyTurn;
+                    EnemyTurn();
+                }
             }
+
+           
 
 
 
         }
         static void EnemyTurn()
         {
+            currentPlayer.Health -= currentEnemy.damage;
+
             combatState = CombatState.EnemyTurnEnd;
             EnemyTurnEnd();
         }
         static void EnemyTurnEnd()
         {
+
+
             combatState = CombatState.PlayerTurnStart;
             PlayerTurnStart();
         }
